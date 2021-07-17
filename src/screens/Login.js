@@ -1,6 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput } from 'react-native';
+
+// components
 import Button from '../components/Button';
+
+// configs
+import colors from '../configs/colors';
 
 export default function App() {
   return (
@@ -10,12 +15,12 @@ export default function App() {
         <TextInput
           style={styles.input}
           placeholder="Email"
-          placeholderTextColor="#3ba29499"
+          placeholderTextColor={colors.placeholder}
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
-          placeholderTextColor="#3ba29499"
+          placeholderTextColor={colors.placeholder}
         />
         <Button text="Login" />
         <Text style={styles.newHere}>New Here? Signup</Text>
@@ -38,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 50,
-    color: '#3ba294',
+    color: colors.primary,
     marginBottom: 300,
     textTransform: 'uppercase',
   },
@@ -47,13 +52,13 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 15,
     borderWidth: 2,
-    borderColor: '#3ba294',
+    borderColor: colors.primary,
     marginBottom: 20,
     paddingHorizontal: 20,
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#3ba294',
+    backgroundColor: colors.primary,
     height: 50,
     width: 350,
     justifyContent: 'center',
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
   },
   newHere: {
     fontSize: 18,
-    color: '#3ba29499',
+    color: colors.placeholder,
     marginTop: 20,
     marginBottom: 20,
   },
