@@ -5,5 +5,5 @@ export default function useSwitch(initialState = false) {
   const on = () => setState(true);
   const off = () => setState(false);
   const toggle = () => setState((value) => !value);
-  return { state, true: on, false: off, toggle };
+  return { value: state, true: on, false: off, toggle };
 }
