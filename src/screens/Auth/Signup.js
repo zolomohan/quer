@@ -62,7 +62,6 @@ export default function App() {
           value={password.value}
           onChangeText={password.set}
           autoCapitalize="none"
-          autoComplete="password"
           secureTextEntry={true}
         />
         <TextInput
