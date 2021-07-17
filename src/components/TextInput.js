@@ -7,6 +7,7 @@ import colors from '../configs/colors';
 export default function TextInput(props) {
   return (
     <Input
+      {...props}
       value={props.value}
       onChangeText={props.onChangeText}
       style={styles.input}
@@ -26,5 +27,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 20,
     fontSize: 16,
+    color: colors.primary,
   },
 });

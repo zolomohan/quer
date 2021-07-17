@@ -9,6 +9,7 @@ import {
 
 // hooks
 import { useNavigation } from '@react-navigation/native';
+import useInput from '../../hooks/useInput';
 
 // components
 import Button from '../../components/Button';
@@ -20,18 +21,30 @@ import NAVIGATION from '../../configs/navigation';
 
 export default function App() {
   const navigation = useNavigation();
+  const email = useInput();
+  const password = useInput();
 
   const navigateToSignup = () => {
     navigation.navigate(NAVIGATION.AUTH.SIGNUP);
   };
 
+  const onSubmit = () => {};
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Quer</Text>
       <View style={styles.bottom}>
-        <TextInput placeholder="Email" />
-        <TextInput placeholder="Password" />
-        <Button text="Login" />
+        <TextInput
+          placeholder="Email"
+          value={email.value}
+          onChangeText={email.set}
+        />
+        <TextInput
+          placeholder="Password"
+          value={password.value}
+          onChangeText={password.set}
+        />
+        <Button text="Login" onPress={onSubmit} />
         <TouchableOpacity onPress={navigateToSignup}>
           <Text style={styles.newHere}>New Here? Signup</Text>
         </TouchableOpacity>

@@ -9,6 +9,10 @@ import {
 
 // hooks
 import { useNavigation } from '@react-navigation/native';
+import useInput from '../../hooks/useInput';
+
+// firebase
+import auth from '@react-native-firebase/auth';
 
 // components
 import Button from '../../components/Button';
@@ -20,19 +24,54 @@ import NAVIGATION from '../../configs/navigation';
 
 export default function App() {
   const navigation = useNavigation();
+  const email = useInput();
+  const password = useInput();
+  const confirmPassword = useInput();
 
   const navigateToSignup = () => {
     navigation.navigate(NAVIGATION.AUTH.LOGIN);
+  };
+
+  const onSubmit = async () => {
+    try {
+      await auth().createUserWithEmailAndPassword(email.value, password.value);
+    } catch (error) {
+      console.error(error);
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+      }
+      if (error.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+      }
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Quer</Text>
       <View style={styles.bottom}>
-        <TextInput placeholder="Email" />
-        <TextInput placeholder="Password" />
-        <TextInput placeholder="Confirm Password" />
-        <Button text="Signup" />
+        <TextInput
+          placeholder="Email"
+          value={email.value}
+          onChangeText={email.set}
+          autoCapitalize="none"
+          autoComplete="email"
+        />
+        <TextInput
+          placeholder="Password"
+          value={password.value}
+          onChangeText={password.set}
+          autoCapitalize="none"
+          autoComplete="email"
+          secureTextEntry={true}
+        />
+        <TextInput
+          placeholder="Confirm Password"
+          value={confirmPassword.value}
+          onChangeText={confirmPassword.set}
+          secureTextEntry={true}
+        />
+        <Button text="Signup" onPress={onSubmit} />
         <TouchableOpacity onPress={navigateToSignup}>
           <Text style={styles.newHere}>Already a member? Login</Text>
         </TouchableOpacity>
