@@ -14,7 +14,7 @@ const colors = {
   white: '#fff',
   black: '#000',
   primary: weights.w900,
-  background: weights.w200,
+  background: '#111',
   placeholder: weights.w500,
   weights: weights,
 };
