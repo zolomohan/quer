@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 // components
-import Button from '../components/Button';
-import TextInput from '../components/TextInput';
+import Button from '../../components/Button';
+import TextInput from '../../components/TextInput';
 
 // configs
-import colors from '../configs/colors';
+import colors from '../../configs/colors';
 
 export default function App() {
   return (
