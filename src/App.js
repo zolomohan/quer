@@ -20,6 +20,7 @@ export default function App() {
         <View style={styles.button}>
           <Text>Login</Text>
         </View>
+        <Text style={styles.newHere}>New Here? Signup</Text>
       </View>
     </SafeAreaView>
   );
@@ -35,11 +36,12 @@ const styles = StyleSheet.create({
   bottom: {
     position: 'absolute',
     bottom: 50,
+    alignItems: 'center',
   },
   title: {
     fontSize: 50,
     color: '#3ba294',
-    marginBottom: 200,
+    marginBottom: 300,
     textTransform: 'uppercase',
   },
   input: {
@@ -59,5 +61,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
+  },
+  newHere: {
+    fontSize: 18,
+    color: '#3ba29499',
+    marginTop: 20,
+    marginBottom: 20,
   },
 });
