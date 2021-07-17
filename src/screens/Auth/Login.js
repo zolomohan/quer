@@ -11,6 +11,9 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import useInput from '../../hooks/useInput';
 
+// firebase
+import auth from '@react-native-firebase/auth';
+
 // components
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
@@ -28,7 +31,11 @@ export default function App() {
     navigation.navigate(NAVIGATION.AUTH.SIGNUP);
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    auth()
+      .signInWithEmailAndPassword(email.value, password.value)
+      .catch(console.log);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
