@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		4BCF32AF26A37D830018FD39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF32AE26A37D830018FD39 /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8250856741070F3F1C175157 /* libPods-quer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECA3024973EA462749B8EAB /* libPods-quer.a */; };
 		D0971F534944DF0E226626A3 /* libPods-quer-querTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6ED9471A1B374BFF6BFCF /* libPods-quer-querTests.a */; };
@@ -36,6 +37,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = quer/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = quer/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = quer/main.m; sourceTree = "<group>"; };
+		4BCF32AE26A37D830018FD39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		60D6ED9471A1B374BFF6BFCF /* libPods-quer-querTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-quer-querTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B9B9D934CEA3FFB10F32CA /* Pods-quer-querTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-quer-querTests.debug.xcconfig"; path = "Target Support Files/Pods-quer-querTests/Pods-quer-querTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6795883C28B82B2EC3AFEF56 /* Pods-quer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-quer.release.xcconfig"; path = "Target Support Files/Pods-quer/Pods-quer.release.xcconfig"; sourceTree = "<group>"; };
@@ -114,7 +116,6 @@
 				63B9B9D934CEA3FFB10F32CA /* Pods-quer-querTests.debug.xcconfig */,
 				73A5BF4105CD6F7B9CE0269B /* Pods-quer-querTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -128,6 +129,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4BCF32AE26A37D830018FD39 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* quer */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* querTests */,
@@ -245,6 +247,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				4BCF32AF26A37D830018FD39 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
