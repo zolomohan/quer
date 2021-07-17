@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput } from 'react-native';
+import Button from '../components/Button';
 
 export default function App() {
   return (
@@ -16,9 +17,7 @@ export default function App() {
           placeholder="Password"
           placeholderTextColor="#3ba29499"
         />
-        <View style={styles.button}>
-          <Text>Login</Text>
-        </View>
+        <Button text="Login" />
         <Text style={styles.newHere}>New Here? Signup</Text>
       </View>
     </SafeAreaView>
