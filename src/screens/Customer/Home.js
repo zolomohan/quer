@@ -1,22 +1,14 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 // hooks
 import { useNavigation } from '@react-navigation/native';
-import useInput from '../../hooks/useInput';
 
 // firebase
 import auth from '@react-native-firebase/auth';
 
 // components
 import Button from '../../components/Button';
-import TextInput from '../../components/TextInput';
 
 // configs
 import colors from '../../configs/colors';
@@ -24,42 +16,16 @@ import NAVIGATION from '../../configs/navigation';
 
 export default function App() {
   const navigation = useNavigation();
-  const email = useInput();
-  const password = useInput();
-
-  const navigateToSignup = () => {
-    navigation.navigate(NAVIGATION.AUTH.SIGNUP);
-  };
 
   const onSubmit = () => {
-    auth()
-      .signInWithEmailAndPassword(email.value, password.value)
-      .catch(console.log);
+    auth().signOut();
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Quer</Text>
+      <Text style={styles.title}>Home</Text>
       <View style={styles.bottom}>
-        <TextInput
-          placeholder="Email"
-          value={email.value}
-          onChangeText={email.set}
-          autoCapitalize="none"
-          autoComplete="email"
-        />
-        <TextInput
-          placeholder="Password"
-          value={password.value}
-          onChangeText={password.set}
-          autoCapitalize="none"
-          autoComplete="password"
-          secureTextEntry={true}
-        />
-        <Button text="Login" onPress={onSubmit} />
-        <TouchableOpacity onPress={navigateToSignup}>
-          <Text style={styles.newHere}>New Here? Signup</Text>
-        </TouchableOpacity>
+        <Button text="Logout" onPress={onSubmit} />
       </View>
     </SafeAreaView>
   );

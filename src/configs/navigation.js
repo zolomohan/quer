@@ -3,6 +3,9 @@ const NAVIGATION = {
     LOGIN: 'LOGIN',
     SIGNUP: 'SIGNUP',
   },
+  CUSTOMER: {
+    HOME: 'HOME',
+  },
 };
 
 export default NAVIGATION;
