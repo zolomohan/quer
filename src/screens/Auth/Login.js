@@ -1,5 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
+
+// hooks
+import { useNavigation } from '@react-navigation/native';
 
 // components
 import Button from '../../components/Button';
@@ -7,8 +16,15 @@ import TextInput from '../../components/TextInput';
 
 // configs
 import colors from '../../configs/colors';
+import NAVIGATION from '../../configs/navigation';
 
 export default function App() {
+  const navigation = useNavigation();
+
+  const navigateToSignup = () => {
+    navigation.navigate(NAVIGATION.AUTH.SIGNUP);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Quer</Text>
@@ -16,7 +32,9 @@ export default function App() {
         <TextInput placeholder="Email" />
         <TextInput placeholder="Password" />
         <Button text="Login" />
-        <Text style={styles.newHere}>New Here? Signup</Text>
+        <TouchableOpacity onPress={navigateToSignup}>
+          <Text style={styles.newHere}>New Here? Signup</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
