@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "904063816814",
+    "project_id": "quer-fef2e",
+    "storage_bucket": "quer-fef2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904063816814:android:664ae7b28a019e375e427f",
+        "android_client_info": {
+          "package_name": "com.quer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904063816814-smm172nos4nngjungch13ijs35itobg5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.quer",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "904063816814-uischmnncugrggojfcari23hmns9hcuc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyTsVkhg2X5jflzVN54Rg8I_U0Svl-JAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904063816814-uischmnncugrggojfcari23hmns9hcuc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "904063816814-g2d89tf0aqrnq6kf5idscorg0t6g16gt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.quer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
