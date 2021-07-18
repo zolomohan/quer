@@ -5,11 +5,13 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
+  Switch,
 } from 'react-native';
 
 // hooks
 import { useNavigation } from '@react-navigation/native';
 import useInput from '../../hooks/useInput';
+import useSwitch from '../../hooks/useSwitch';
 
 // firebase
 import auth from '@react-native-firebase/auth';
@@ -27,6 +29,7 @@ export default function App() {
   const email = useInput();
   const password = useInput();
   const confirmPassword = useInput();
+  const isShopOwner = useSwitch();
 
   const navigateToSignup = () => {
     navigation.navigate(NAVIGATION.AUTH.LOGIN);
@@ -70,6 +73,14 @@ export default function App() {
           onChangeText={confirmPassword.set}
           secureTextEntry={true}
         />
+        <View style={styles.shopOwnerOption}>
+          <Text style={styles.shopOwnerOptionText}>Shop Account</Text>
+          <Switch
+            value={isShopOwner.value}
+            onChange={isShopOwner.toggle}
+            trackColor={{ true: colors.primary }}
+          />
+        </View>
         <Button text="Signup" onPress={onSubmit} />
         <TouchableOpacity onPress={navigateToSignup}>
           <Text style={styles.newHere}>Already a member? Login</Text>
@@ -110,5 +121,15 @@ const styles = StyleSheet.create({
     color: colors.placeholder,
     marginTop: 20,
     marginBottom: 20,
+  },
+  shopOwnerOption: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-around',
+    paddingBottom: 15,
+  },
+  shopOwnerOptionText: {
+    color: colors.primary,
+    fontSize: 22,
   },
 });
