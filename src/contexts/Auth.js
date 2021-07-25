@@ -15,13 +15,23 @@ export function AuthContextProvider(props) {
 
       const customer = await api.customers.get(_user.uid);
       if (customer.exists) {
-        setUser((c) => ({ ...c, ...customer.data, type: USERTYPE.CUSTOMER }));
+        setUser((c) => ({
+          ...c,
+          ...customer.data,
+          id: _user.uid,
+          type: USERTYPE.CUSTOMER,
+        }));
         return;
       }
 
       const store = await api.stores.get(_user.uid);
       if (store.exists) {
-        setUser((c) => ({ ...c, ...store.data, type: USERTYPE.STORE }));
+        setUser((c) => ({
+          ...c,
+          ...store.data,
+          id: _user.uid,
+          type: USERTYPE.STORE,
+        }));
         return;
       }
 
