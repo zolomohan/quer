@@ -26,7 +26,7 @@ const enqueue = async (store_id, user, data) => {
     .doc(user.id)
     .collection(COLLECTIONS.QUEUE)
     .doc(store_id)
-    .set(store.data);
+    .set({ ...store.data, createdAt: firebase.firestore.Timestamp.now() });
 
   firestore()
     .collection(COLLECTIONS.STORES)
@@ -41,6 +41,7 @@ const listenQueue = (id, onChange) => {
     .collection(COLLECTIONS.CUSTOMERS)
     .doc(id)
     .collection(COLLECTIONS.QUEUE)
+    .orderBy('createdAt', 'asc')
     .onSnapshot(onChange);
   return unsubscribe;
 };
