@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalView: {
-    backgroundColor: '#00000077',
+    backgroundColor: '#222',
     width: '100%',
     height: '100%',
     justifyContent: 'center',

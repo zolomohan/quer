@@ -24,6 +24,7 @@ import useSwitch from '../../hooks/useSwitch';
 export default function App() {
   const auth = useAuthContext();
   const isQRCodeModalOpen = useSwitch();
+  const isTorchOn = useSwitch();
 
   const onRead = (result) => {
     console.log(result.data);
@@ -56,10 +57,17 @@ export default function App() {
             <View style={styles.qrView}>
               <QRCodeScanner
                 onRead={onRead}
-                flashMode={RNCamera.Constants.FlashMode.torch}
+                flashMode={
+                  isTorchOn.value ? RNCamera.Constants.FlashMode.torch : null
+                }
                 bottomContent={
-                  <View style={styles.closeButton}>
-                    <Button text="Close" onPress={isQRCodeModalOpen.false} />
+                  <View style={styles.fdrow}>
+                    <View style={styles.closeButton}>
+                      <Button text="Toggle Torch" onPress={isTorchOn.toggle} />
+                    </View>
+                    <View style={styles.closeButton}>
+                      <Button text="Close" onPress={isQRCodeModalOpen.false} />
+                    </View>
                   </View>
                 }
               />
@@ -103,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalView: {
-    backgroundColor: '#000000',
+    backgroundColor: '#222',
     width: '100%',
     height: '100%',
     justifyContent: 'center',
@@ -111,25 +119,15 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: 'center',
   },
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777',
-  },
-  textBold: {
-    fontWeight: '500',
-    color: '#000',
-  },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)',
-  },
-  buttonTouchable: {
-    padding: 16,
+  qrView: {
+    borderRadius: 20,
   },
   closeButton: {
-    marginTop: 20,
-    width: '90%',
+    marginTop: 30,
+    marginHorizontal: 10,
+    width: '40%',
+  },
+  fdrow: {
+    flexDirection: 'row',
   },
 });
