@@ -10,9 +10,7 @@ import {
 // hooks
 import { useNavigation } from '@react-navigation/native';
 import useInput from '../../hooks/useInput';
-
-// firebase
-import auth from '@react-native-firebase/auth';
+import useAuthContext from '../../contexts/Auth';
 
 // components
 import Button from '../../components/Button';
@@ -23,6 +21,7 @@ import colors from '../../configs/colors';
 import NAVIGATION from '../../configs/navigation';
 
 export default function App() {
+  const auth = useAuthContext();
   const navigation = useNavigation();
   const email = useInput();
   const password = useInput();
@@ -32,9 +31,7 @@ export default function App() {
   };
 
   const onSubmit = () => {
-    auth()
-      .signInWithEmailAndPassword(email.value, password.value)
-      .catch(console.log);
+    auth.functions.signin(email.value, password.value);
   };
 
   return (

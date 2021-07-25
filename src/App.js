@@ -6,16 +6,12 @@ import auth from '@react-native-firebase/auth';
 // routes
 import AuthRoutes from './routes/Auth';
 import CustomerRoutes from './routes/Customer';
+import useAuthContext from './contexts/Auth';
 
 export default function App() {
-  const [user, setUser] = useState();
+  const auth = useAuthContext();
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(setUser);
-    return subscriber;
-  }, []);
-
-  if (!user) {
+  if (!auth.user) {
     return <AuthRoutes />;
   }
 

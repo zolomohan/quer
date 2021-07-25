@@ -7,12 +7,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-// hooks
-import { useNavigation } from '@react-navigation/native';
-
-// firebase
-import auth from '@react-native-firebase/auth';
-
 // libraries
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -21,20 +15,16 @@ import Button from '../../components/Button';
 
 // configs
 import colors from '../../configs/colors';
-import NAVIGATION from '../../configs/navigation';
+import useAuthContext from '../../contexts/Auth';
 
 export default function App() {
-  const navigation = useNavigation();
-
-  const onLogout = () => {
-    auth().signOut();
-  };
+  const auth = useAuthContext();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Queue</Text>
-        <TouchableOpacity onPress={onLogout}>
+        <TouchableOpacity onPress={auth?.functions.logout}>
           <Icon name="power-off" color={colors.primary} size={22} />
         </TouchableOpacity>
       </View>
