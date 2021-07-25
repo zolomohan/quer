@@ -42,7 +42,6 @@ export default function App() {
       snapshot.forEach((doc) => {
         stores.push({ id: doc.id, ...doc.data() });
       });
-      console.log(stores);
       setEnrolledStores(stores);
     };
     const unsubscribe = api.customers.queue.listen(auth.user.id, onQueueChange);

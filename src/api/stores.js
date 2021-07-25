@@ -13,9 +13,22 @@ const create = (id, data) => {
   return firestore().collection(COLLECTIONS.STORES).doc(id).set(data);
 };
 
+const listenQueue = (id, onChange) => {
+  const unsubscribe = firestore()
+    .collection(COLLECTIONS.STORES)
+    .doc(id)
+    .collection(COLLECTIONS.QUEUE)
+    .orderBy('createdAt', 'asc')
+    .onSnapshot(onChange);
+  return unsubscribe;
+};
+
 const stores = {
   get,
   create,
+  queue: {
+    listen: listenQueue,
+  },
 };
 
 export default stores;

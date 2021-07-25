@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,7 +6,12 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Modal,
+  ScrollView,
 } from 'react-native';
+
+// hooks
+import useSwitch from '../../hooks/useSwitch';
+import useAuthContext from '../../contexts/Auth';
 
 // libraries
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -17,12 +22,27 @@ import Button from '../../components/Button';
 
 // configs
 import colors from '../../configs/colors';
-import useAuthContext from '../../contexts/Auth';
-import useSwitch from '../../hooks/useSwitch';
+
+// helpers
+import api from '../../api';
 
 export default function App() {
   const auth = useAuthContext();
   const isQRCodeModalOpen = useSwitch();
+
+  const [enrolledCustomers, setEnrolledCustomers] = useState([]);
+
+  useEffect(() => {
+    const onQueueChange = (snapshot) => {
+      const stores = [];
+      snapshot.forEach((doc) => {
+        stores.push({ id: doc.id, ...doc.data() });
+      });
+      setEnrolledCustomers(stores);
+    };
+    const unsubscribe = api.stores.queue.listen(auth.user.id, onQueueChange);
+    return unsubscribe;
+  }, []);
 
   return (
     <>
@@ -33,6 +53,16 @@ export default function App() {
             <Icon name="power-off" color={colors.primary} size={22} />
           </TouchableOpacity>
         </View>
+        <ScrollView
+          style={styles.stores}
+          contentContainerStyle={styles.storesContent}>
+          {enrolledCustomers.map((store) => (
+            <View key={store.id} style={styles.storeCard}>
+              <Text style={styles.storeTitle}>{store.name}</Text>
+              <Text style={styles.storePhoneNumber}>{store.phoneNumber}</Text>
+            </View>
+          ))}
+        </ScrollView>
         <View style={styles.bottom}>
           <Button
             text="Show QR Code"
@@ -79,6 +109,32 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: colors.primary,
     paddingVertical: 15,
+  },
+  stores: {
+    marginTop: 30,
+    width: '100%',
+  },
+  storesContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  storeCard: {
+    height: 70,
+    backgroundColor: '#333',
+    width: '90%',
+    borderRadius: 20,
+    marginBottom: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    justifyContent: 'center',
+  },
+  storeTitle: {
+    fontSize: 18,
+    color: colors.primary,
+  },
+  storePhoneNumber: {
+    fontSize: 16,
+    color: colors.placeholder,
   },
   bottom: {
     position: 'absolute',
