@@ -20,6 +20,8 @@ import Button from '../../components/Button';
 import colors from '../../configs/colors';
 import useAuthContext from '../../contexts/Auth';
 import useSwitch from '../../hooks/useSwitch';
+import api from '../../api';
+import { firebase } from '@react-native-firebase/auth';
 
 export default function App() {
   const auth = useAuthContext();
@@ -27,7 +29,12 @@ export default function App() {
   const isTorchOn = useSwitch();
 
   const onRead = (result) => {
-    console.log(result.data);
+    const splitData = result.data.split(':');
+    if (splitData[0] !== 'quer') {
+      return;
+    }
+    api.customers.enqueue(splitData[1], auth.user);
+    isQRCodeModalOpen.false();
   };
 
   return (

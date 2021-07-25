@@ -1,4 +1,6 @@
+import { firebase } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import api from '.';
 import COLLECTIONS from '../configs/firestore';
 
 const get = async (id) => {
@@ -13,13 +15,31 @@ const get = async (id) => {
 };
 
 const create = (id, data) => {
-  console.log(id);
   return firestore().collection(COLLECTIONS.CUSTOMERS).doc(id).set(data);
+};
+
+const enqueue = async (store_id, user, data) => {
+  const store = await api.stores.get(store_id);
+
+  firestore()
+    .collection(COLLECTIONS.CUSTOMERS)
+    .doc(user.id)
+    .collection(COLLECTIONS.QUEUE)
+    .doc(store_id)
+    .set(store.data);
+
+  firestore()
+    .collection(COLLECTIONS.STORES)
+    .doc(store_id)
+    .collection(COLLECTIONS.QUEUE)
+    .doc(user.id)
+    .set({ ...user, createdAt: firebase.firestore.Timestamp.now() });
 };
 
 const customers = {
   get,
   create,
+  enqueue,
 };
 
 export default customers;
