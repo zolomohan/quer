@@ -1,12 +1,32 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
+import api from '../api';
+import { USERTYPE } from '../constants';
 
 const AuthContext = createContext();
 
 export function AuthContextProvider(props) {
   const [user, setUser] = useState();
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(setUser);
+    const subscriber = auth().onAuthStateChanged(async (_user) => {
+      if (!_user) {
+        return;
+      }
+
+      const customer = await api.customers.get(_user.uid);
+      if (customer.exists) {
+        setUser((c) => ({ ...c, ...customer.data, type: USERTYPE.CUSTOMER }));
+        return;
+      }
+
+      const store = await api.stores.get(_user.uid);
+      if (store.exists) {
+        setUser((c) => ({ ...c, ...store.data, type: USERTYPE.STORE }));
+        return;
+      }
+
+      setUser({ data: _user, type: USERTYPE.UNINITIALIZED });
+    });
     return subscriber;
   }, []);
 
@@ -38,6 +58,7 @@ export function AuthContextProvider(props) {
       signin,
       signup,
       logout,
+      updateState: setUser,
     },
   };
 
