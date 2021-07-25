@@ -25,6 +25,10 @@ export default function App() {
   const auth = useAuthContext();
   const isQRCodeModalOpen = useSwitch();
 
+  const onRead = (result) => {
+    console.log(result.data);
+  };
+
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -36,7 +40,7 @@ export default function App() {
         </View>
         <View style={styles.bottom}>
           <Button
-            text="Show QR Code"
+            text="Scan QR Code"
             icon="qrcode"
             onPress={isQRCodeModalOpen.true}
           />
@@ -51,26 +55,14 @@ export default function App() {
           <View style={styles.modalView}>
             <View style={styles.qrView}>
               <QRCodeScanner
-                onRead={this.onSuccess}
+                onRead={onRead}
                 flashMode={RNCamera.Constants.FlashMode.torch}
-                topContent={
-                  <Text style={styles.centerText}>
-                    Go to{' '}
-                    <Text style={styles.textBold}>
-                      wikipedia.org/wiki/QR_code
-                    </Text>{' '}
-                    on your computer and scan the QR code.
-                  </Text>
-                }
                 bottomContent={
-                  <TouchableOpacity style={styles.buttonTouchable}>
-                    <Text style={styles.buttonText}>OK. Got it!</Text>
-                  </TouchableOpacity>
+                  <View style={styles.closeButton}>
+                    <Button text="Close" onPress={isQRCodeModalOpen.false} />
+                  </View>
                 }
               />
-            </View>
-            <View style={styles.closeButton}>
-              <Button text="Close" onPress={isQRCodeModalOpen.false} />
             </View>
           </View>
         </View>
@@ -111,7 +103,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalView: {
-    backgroundColor: '#00000077',
+    backgroundColor: '#000000',
     width: '100%',
     height: '100%',
     justifyContent: 'center',
@@ -135,5 +127,9 @@ const styles = StyleSheet.create({
   },
   buttonTouchable: {
     padding: 16,
+  },
+  closeButton: {
+    marginTop: 20,
+    width: '90%',
   },
 });

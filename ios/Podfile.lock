@@ -645,6 +645,8 @@ PODS:
     - RNFBApp
   - RNGestureHandler (1.10.3):
     - React-Core
+  - RNPermissions (3.0.5):
+    - React-Core
   - RNReanimated (2.2.0):
     - DoubleConversion
     - FBLazyVector
@@ -741,6 +743,7 @@ DEPENDENCIES:
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -846,6 +849,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/firestore"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -918,6 +923,7 @@ SPEC CHECKSUMS:
   RNFBAuth: 385db0185418f06c99507596cfd7a5ec92de2b89
   RNFBFirestore: b6e41210b2224c2f63c3131a499a395bb5b049e2
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNPermissions: 7043bacbf928eae25808275cfe73799b8f618911
   RNReanimated: 9c13c86454bfd54dab7505c1a054470bfecd2563
   RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
