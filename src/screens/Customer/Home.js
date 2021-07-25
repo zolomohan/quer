@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 
 // hooks
 import { useNavigation } from '@react-navigation/native';
@@ -20,7 +26,7 @@ import NAVIGATION from '../../configs/navigation';
 export default function App() {
   const navigation = useNavigation();
 
-  const onSubmit = () => {
+  const onLogout = () => {
     auth().signOut();
   };
 
@@ -28,10 +34,12 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Queue</Text>
-        <Icon name="power-off" color={colors.primary} size={22} />
+        <TouchableOpacity onPress={onLogout}>
+          <Icon name="power-off" color={colors.primary} size={22} />
+        </TouchableOpacity>
       </View>
       <View style={styles.bottom}>
-        <Button text="Scan QR Code" onPress={onSubmit} icon="qrcode" />
+        <Button text="Scan QR Code" icon="qrcode" />
       </View>
     </SafeAreaView>
   );
