@@ -3,6 +3,7 @@ import React from 'react';
 // routes
 import AuthRoutes from './routes/Auth';
 import CustomerRoutes from './routes/Customer';
+import StoreRoutes from './routes/Stores';
 import CollectData from './screens/common/CollectData';
 
 import useAuthContext from './contexts/Auth';
@@ -19,5 +20,9 @@ export default function App() {
     return <CollectData />;
   }
 
-  return <CustomerRoutes />;
+  if (auth.user.type === USERTYPE.CUSTOMER) {
+    return <CustomerRoutes />;
+  }
+
+  return <StoreRoutes />;
 }

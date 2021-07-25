@@ -6,6 +6,9 @@ const NAVIGATION = {
   CUSTOMER: {
     HOME: 'HOME',
   },
+  STORE: {
+    HOME: 'HOME',
+  },
 };
 
 export default NAVIGATION;
