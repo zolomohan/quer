@@ -7,6 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 // firebase
 import auth from '@react-native-firebase/auth';
 
+// libraries
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
 // components
 import Button from '../../components/Button';
 
@@ -23,9 +26,12 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Home</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Queue</Text>
+        <Icon name="power-off" color={colors.primary} size={22} />
+      </View>
       <View style={styles.bottom}>
-        <Button text="Logout" onPress={onSubmit} />
+        <Button text="Scan QR Code" onPress={onSubmit} icon="qrcode" />
       </View>
     </SafeAreaView>
   );
@@ -34,9 +40,20 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#111',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 20,
+  },
+  headerTitle: {
+    fontSize: 30,
+    color: colors.primary,
+    paddingVertical: 15,
   },
   bottom: {
     position: 'absolute',
