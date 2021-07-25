@@ -23,11 +23,28 @@ const listenQueue = (id, onChange) => {
   return unsubscribe;
 };
 
+const next = async (user_id, store_id) => {
+  firestore()
+    .collection(COLLECTIONS.STORES)
+    .doc(store_id)
+    .collection(COLLECTIONS.QUEUE)
+    .doc(user_id)
+    .delete();
+
+  firestore()
+    .collection(COLLECTIONS.CUSTOMERS)
+    .doc(user_id)
+    .collection(COLLECTIONS.QUEUE)
+    .doc(store_id)
+    .delete();
+};
+
 const stores = {
   get,
   create,
   queue: {
     listen: listenQueue,
+    next: next,
   },
 };
 

@@ -32,6 +32,10 @@ export default function App() {
 
   const [enrolledCustomers, setEnrolledCustomers] = useState([]);
 
+  const onNext = () => {
+    api.stores.queue.next(enrolledCustomers[0].id, auth.user.id);
+  };
+
   useEffect(() => {
     const onQueueChange = (snapshot) => {
       const stores = [];
@@ -64,6 +68,12 @@ export default function App() {
           ))}
         </ScrollView>
         <View style={styles.bottom}>
+          <Button
+            text="Next"
+            icon="chevron-right"
+            containerStyle={{ marginBottom: 20 }}
+            onPress={onNext}
+          />
           <Button
             text="Show QR Code"
             icon="qrcode"
