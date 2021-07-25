@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Modal,
+  ScrollView,
 } from 'react-native';
 
 // libraries
@@ -21,21 +22,32 @@ import colors from '../../configs/colors';
 import useAuthContext from '../../contexts/Auth';
 import useSwitch from '../../hooks/useSwitch';
 import api from '../../api';
-import { firebase } from '@react-native-firebase/auth';
 
 export default function App() {
   const auth = useAuthContext();
   const isQRCodeModalOpen = useSwitch();
   const isTorchOn = useSwitch();
+  const [enrolledStores, setEnrolledStores] = useState([]);
 
   const onRead = (result) => {
     const splitData = result.data.split(':');
-    if (splitData[0] !== 'quer') {
-      return;
-    }
-    api.customers.enqueue(splitData[1], auth.user);
+    if (splitData[0] !== 'quer') return;
+    api.customers.queue.enqueue(splitData[1], auth.user);
     isQRCodeModalOpen.false();
   };
+
+  useEffect(() => {
+    const onQueueChange = (snapshot) => {
+      const stores = [];
+      snapshot.forEach((doc) => {
+        stores.push({ id: doc.id, ...doc.data() });
+      });
+      console.log(stores);
+      setEnrolledStores(stores);
+    };
+    const unsubscribe = api.customers.queue.listen(auth.user.id, onQueueChange);
+    return unsubscribe;
+  }, []);
 
   return (
     <>
@@ -46,6 +58,16 @@ export default function App() {
             <Icon name="power-off" color={colors.primary} size={22} />
           </TouchableOpacity>
         </View>
+        <ScrollView
+          style={styles.stores}
+          contentContainerStyle={styles.storesContent}>
+          {enrolledStores.map((store) => (
+            <View key={store.id} style={styles.storeCard}>
+              <Text style={styles.storeTitle}>{store.name}</Text>
+              <Text style={styles.storePhoneNumber}>{store.phoneNumber}</Text>
+            </View>
+          ))}
+        </ScrollView>
         <View style={styles.bottom}>
           <Button
             text="Scan QR Code"
@@ -61,7 +83,7 @@ export default function App() {
         onRequestClose={isQRCodeModalOpen.false}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <View style={styles.qrView}>
+            <View>
               <QRCodeScanner
                 onRead={onRead}
                 flashMode={
@@ -105,9 +127,35 @@ const styles = StyleSheet.create({
     color: colors.primary,
     paddingVertical: 15,
   },
+  stores: {
+    marginTop: 30,
+    width: '100%',
+  },
+  storesContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  storeCard: {
+    height: 70,
+    backgroundColor: '#333',
+    width: '90%',
+    borderRadius: 20,
+    marginBottom: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    justifyContent: 'center',
+  },
+  storeTitle: {
+    fontSize: 18,
+    color: colors.primary,
+  },
+  storePhoneNumber: {
+    fontSize: 16,
+    color: colors.placeholder,
+  },
   bottom: {
     position: 'absolute',
-    bottom: 50,
+    bottom: 30,
     alignItems: 'center',
     width: '90%',
   },
@@ -125,9 +173,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
-  },
-  qrView: {
-    borderRadius: 20,
   },
   closeButton: {
     marginTop: 30,

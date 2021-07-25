@@ -36,10 +36,22 @@ const enqueue = async (store_id, user, data) => {
     .set({ ...user, createdAt: firebase.firestore.Timestamp.now() });
 };
 
+const listenQueue = (id, onChange) => {
+  const unsubscribe = firestore()
+    .collection(COLLECTIONS.CUSTOMERS)
+    .doc(id)
+    .collection(COLLECTIONS.QUEUE)
+    .onSnapshot(onChange);
+  return unsubscribe;
+};
+
 const customers = {
   get,
   create,
-  enqueue,
+  queue: {
+    enqueue,
+    listen: listenQueue,
+  },
 };
 
 export default customers;
