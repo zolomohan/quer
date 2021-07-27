@@ -5,10 +5,12 @@ import {
   View,
   FlatList,
   TextInput,
-  Dimensions,
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
+
+// hooks
+import useAuthContext from '../../contexts/Auth';
 
 // libraries
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -22,9 +24,11 @@ import api from '../../api';
 export default function Chat(props) {
   const [log, setLog] = useState([]);
   const [input, setInput] = useState('');
+  const [chatId, setChatId] = useState();
+  const auth = useAuthContext();
 
   const addMessage = () => {
-    api.streams.chat.messages.send(props.stream.id, input);
+    api.chat.send(chatId, auth.user.id, input);
     setInput('');
   };
 
@@ -37,44 +41,55 @@ export default function Chat(props) {
       setLog(chatLog);
     };
 
-    let unsubscribeChatListener = null;
-    const getChatLogs = async () => {
-      unsubscribeChatListener = await api.streams.chat.listen(
-        props.stream.id,
+    const listenToChatDocument = async () => {
+      let _chatId = await api.chat.get(
+        props.route.params.customerId,
+        props.route.params.storeId,
+      );
+
+      if (!_chatId) {
+        _chatId = await api.chat.create({
+          customer: props.route.params.customerId,
+          store: props.route.params.storeId,
+        });
+      }
+
+      setChatId(_chatId);
+      const unsubscribeChatListener = await api.chat.listen(
+        _chatId,
         onChatChange,
       );
+      return unsubscribeChatListener;
     };
-    // getChatLogs();
-
-    // return () => {
-    //   unsubscribeChatListener();
-    // };
+    listenToChatDocument();
   }, []);
 
   return (
     <SafeAreaView style={styles.chatContent}>
       <View>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Queue</Text>
+          <Text style={styles.headerTitle}>
+            {props.route.params.customerName}
+          </Text>
           <TouchableOpacity>
             <Icon name="chevron-left" color={colors.primary} size={22} />
           </TouchableOpacity>
         </View>
         <FlatList
           inverted
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+          data={log}
           style={{ height: '85%' }}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <>
-              <View style={styles.chatMessage}>
-                <Text style={styles.message}>How you doing?</Text>
-              </View>
-              <View style={styles.rightMessage}>
-                <Text style={styles.message}>How you doing?</Text>
-              </View>
-            </>
+            <View
+              style={
+                item.user === auth.user.id
+                  ? styles.rightMessage
+                  : styles.chatMessage
+              }>
+              <Text style={styles.message}>{item.message}</Text>
+            </View>
           )}
         />
       </View>

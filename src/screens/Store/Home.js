@@ -39,13 +39,10 @@ export default function App() {
     api.stores.queue.next(enrolledCustomers[0].id, auth.user.id);
   };
 
-  const navigateToChat = (id) => {
-    console.log({
-      customerId: id,
-      storeId: auth.user.id,
-    });
+  const navigateToChat = (customer) => {
     navigation.navigate(NAVIGATION.STORE.CHAT, {
-      customerId: id,
+      customerId: customer.id,
+      customerName: customer.name,
       storeId: auth.user.id,
     });
   };
@@ -78,7 +75,7 @@ export default function App() {
             <TouchableOpacity
               key={customer.id}
               style={styles.storeCard}
-              onPress={() => navigateToChat(customer.id)}>
+              onPress={() => navigateToChat(customer)}>
               <Text style={styles.storeTitle}>{customer.name}</Text>
               <Text style={styles.storePhoneNumber}>
                 {customer.phoneNumber}
