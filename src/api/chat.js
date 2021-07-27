@@ -28,16 +28,12 @@ const listen = async (docId, onChange) => {
     .onSnapshot(onChange);
 };
 
-const send = async (docId, userId, message) => {
+const send = async (docId, doc) => {
   return firestore()
     .collection(COLLECTIONS.CHAT)
     .doc(docId)
     .collection(COLLECTIONS.MESSAGES)
-    .add({
-      user: userId,
-      message,
-      createdAt: new Date(Date.now()),
-    });
+    .add(doc);
 };
 
 const chat = {

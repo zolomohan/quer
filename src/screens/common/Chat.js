@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
+import uuid from 'react-native-uuid';
 
 // hooks
 import useAuthContext from '../../contexts/Auth';
@@ -23,6 +24,12 @@ import colors from '../../configs/colors';
 import api from '../../api';
 import NAVIGATION from '../../configs/navigation';
 
+const MESSAGETYPE = {
+  TEXT: 'text',
+  VIDEO: 'video-invite',
+  AUDIO: 'audio-invite',
+};
+
 export default function Chat(props) {
   const [log, setLog] = useState([]);
   const [input, setInput] = useState('');
@@ -31,21 +38,46 @@ export default function Chat(props) {
   const navigation = useNavigation();
 
   const addMessage = () => {
-    api.chat.send(chatId, auth.user.id, input);
-    setInput('');
-  };
-
-  const navigateToVideoCall = () => {
-    navigation.navigate(NAVIGATION.VIDEO, {
-      customerId: props.route.params.customerId,
-      storeId: props.route.params.storeId,
+    api.chat.send(chatId, {
+      type: MESSAGETYPE.TEXT,
+      user: auth.user.id,
+      message: input,
+      createdAt: new Date(Date.now()),
     });
   };
 
-  const navigateToAudioCall = () => {
+  const sendVideoCallInvite = () => {
+    api.chat.send(chatId, {
+      type: MESSAGETYPE.VIDEO,
+      user: auth.user.id,
+      channel: uuid.v4(),
+      createdAt: new Date(Date.now()),
+    });
+    setInput('');
+  };
+
+  const sendAudioCallInvite = () => {
+    api.chat.send(chatId, {
+      type: MESSAGETYPE.AUDIO,
+      user: auth.user.id,
+      channel: uuid.v4(),
+      createdAt: new Date(Date.now()),
+    });
+  };
+
+  const navigateToVideoCall = (channel) => {
+    navigation.navigate(NAVIGATION.VIDEO, {
+      customerId: props.route.params.customerId,
+      storeId: props.route.params.storeId,
+      channel,
+    });
+  };
+
+  const navigateToAudioCall = (channel) => {
     navigation.navigate(NAVIGATION.AUDIO, {
       customerId: props.route.params.customerId,
       storeId: props.route.params.storeId,
+      channel,
     });
   };
 
@@ -92,10 +124,10 @@ export default function Chat(props) {
             <TouchableOpacity onPress={navigation.goBack}>
               <Icon name="chevron-left" color={colors.primary} size={22} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={navigateToAudioCall} style={styles.ml20}>
+            <TouchableOpacity onPress={sendAudioCallInvite} style={styles.ml20}>
               <Icon name="phone" color={colors.primary} size={19} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={navigateToVideoCall} style={styles.ml20}>
+            <TouchableOpacity onPress={sendVideoCallInvite} style={styles.ml20}>
               <Icon name="video" color={colors.primary} size={22} />
             </TouchableOpacity>
           </View>
@@ -106,16 +138,50 @@ export default function Chat(props) {
           style={styles.h85}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View
-              style={
-                item.user === auth.user.id
-                  ? styles.rightMessage
-                  : styles.chatMessage
-              }>
-              <Text style={styles.message}>{item.message}</Text>
-            </View>
-          )}
+          renderItem={({ item }) => {
+            if (item.type === MESSAGETYPE.VIDEO) {
+              return (
+                <View
+                  style={
+                    item.user === auth.user.id
+                      ? styles.rightMessage
+                      : styles.chatMessage
+                  }>
+                  <Text style={styles.message}>Video Call Invite</Text>
+                  <TouchableOpacity
+                    onPress={() => navigateToVideoCall(item.channel)}>
+                    <Text style={styles.callJoin}>Join</Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            }
+            if (item.type === MESSAGETYPE.AUDIO) {
+              return (
+                <View
+                  style={
+                    item.user === auth.user.id
+                      ? styles.rightMessage
+                      : styles.chatMessage
+                  }>
+                  <Text style={styles.message}>Audio Call Invite</Text>
+                  <TouchableOpacity
+                    onPress={() => navigateToAudioCall(item.channel)}>
+                    <Text style={styles.callJoin}>Join</Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            }
+            return (
+              <View
+                style={
+                  item.user === auth.user.id
+                    ? styles.rightMessage
+                    : styles.chatMessage
+                }>
+                <Text style={styles.message}>{item.message}</Text>
+              </View>
+            );
+          }}
         />
       </View>
       <View style={styles.bottomContent}>
@@ -203,6 +269,11 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  callJoin: {
+    color: colors.primary,
+    fontSize: 15,
+    textTransform: 'uppercase',
   },
   ml20: {
     marginLeft: 20,
