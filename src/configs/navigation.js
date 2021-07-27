@@ -3,14 +3,10 @@ const NAVIGATION = {
     LOGIN: 'LOGIN',
     SIGNUP: 'SIGNUP',
   },
-  CUSTOMER: {
-    HOME: 'HOME',
-    CHAT: 'CHAT',
-  },
-  STORE: {
-    HOME: 'HOME',
-    CHAT: 'CHAT',
-  },
+  HOME: 'HOME',
+  CHAT: 'CHAT',
+  VIDEO: 'VIDEO',
+  AUDIO: 'AUDIO',
 };
 
 export default NAVIGATION;

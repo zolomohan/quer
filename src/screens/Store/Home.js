@@ -40,7 +40,7 @@ export default function App() {
   };
 
   const navigateToChat = (customer) => {
-    navigation.navigate(NAVIGATION.STORE.CHAT, {
+    navigation.navigate(NAVIGATION.CHAT, {
       customerId: customer.id,
       customerName: customer.name,
       storeId: auth.user.id,

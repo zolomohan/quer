@@ -21,6 +21,7 @@ import colors from '../../configs/colors';
 
 // helpers
 import api from '../../api';
+import NAVIGATION from '../../configs/navigation';
 
 export default function Chat(props) {
   const [log, setLog] = useState([]);
@@ -32,6 +33,20 @@ export default function Chat(props) {
   const addMessage = () => {
     api.chat.send(chatId, auth.user.id, input);
     setInput('');
+  };
+
+  const navigateToVideoCall = () => {
+    navigation.navigate(NAVIGATION.VIDEO, {
+      customerId: props.route.params.customerId,
+      storeId: props.route.params.storeId,
+    });
+  };
+
+  const navigateToAudioCall = () => {
+    navigation.navigate(NAVIGATION.AUDIO, {
+      customerId: props.route.params.customerId,
+      storeId: props.route.params.storeId,
+    });
   };
 
   useEffect(() => {
@@ -73,14 +88,22 @@ export default function Chat(props) {
           <Text style={styles.headerTitle}>
             {props.route.params.customerName}
           </Text>
-          <TouchableOpacity onPress={navigation.goBack}>
-            <Icon name="chevron-left" color={colors.primary} size={22} />
-          </TouchableOpacity>
+          <View style={styles.headerIcons}>
+            <TouchableOpacity onPress={navigation.goBack}>
+              <Icon name="chevron-left" color={colors.primary} size={22} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={navigateToAudioCall} style={styles.ml20}>
+              <Icon name="phone" color={colors.primary} size={19} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={navigateToVideoCall} style={styles.ml20}>
+              <Icon name="video" color={colors.primary} size={22} />
+            </TouchableOpacity>
+          </View>
         </View>
         <FlatList
           inverted
           data={log}
-          style={{ height: '85%' }}
+          style={styles.h85}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
@@ -133,6 +156,11 @@ const styles = StyleSheet.create({
     color: colors.primary,
     paddingVertical: 15,
   },
+  headerIcons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   chatMessage: {
     backgroundColor: colors.primary,
     marginVertical: 10,
@@ -175,5 +203,11 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  ml20: {
+    marginLeft: 20,
+  },
+  h85: {
+    height: '85%',
   },
 });
