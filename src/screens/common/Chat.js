@@ -11,6 +11,7 @@ import {
 
 // hooks
 import useAuthContext from '../../contexts/Auth';
+import { useNavigation } from '@react-navigation/core';
 
 // libraries
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -26,6 +27,7 @@ export default function Chat(props) {
   const [input, setInput] = useState('');
   const [chatId, setChatId] = useState();
   const auth = useAuthContext();
+  const navigation = useNavigation();
 
   const addMessage = () => {
     api.chat.send(chatId, auth.user.id, input);
@@ -71,7 +73,7 @@ export default function Chat(props) {
           <Text style={styles.headerTitle}>
             {props.route.params.customerName}
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={navigation.goBack}>
             <Icon name="chevron-left" color={colors.primary} size={22} />
           </TouchableOpacity>
         </View>
