@@ -77,6 +77,7 @@ export default function Chat(props) {
     navigation.navigate(NAVIGATION.AUDIO, {
       customerId: props.route.params.customerId,
       storeId: props.route.params.storeId,
+      name: props.route.params.customerName,
       channel,
     });
   };

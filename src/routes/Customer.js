@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Customer/Home';
 import Chat from '../screens/common/Chat';
 import VideoCall from '../screens/common/VideoCall';
+import AudioCall from '../screens/common/AudioCall';
 
 // configs
 import NAVIGATION from '../configs/navigation';
@@ -17,6 +18,7 @@ export default function AuthRoutes() {
       <CustomerStack.Screen name={NAVIGATION.HOME} component={Home} />
       <CustomerStack.Screen name={NAVIGATION.CHAT} component={Chat} />
       <CustomerStack.Screen name={NAVIGATION.VIDEO} component={VideoCall} />
+      <CustomerStack.Screen name={NAVIGATION.AUDIO} component={AudioCall} />
     </CustomerStack.Navigator>
   );
 }
