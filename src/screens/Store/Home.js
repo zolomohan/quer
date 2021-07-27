@@ -68,12 +68,14 @@ export default function App() {
           ))}
         </ScrollView>
         <View style={styles.bottom}>
-          <Button
-            text="Next"
-            icon="chevron-right"
-            containerStyle={{ marginBottom: 20 }}
-            onPress={onNext}
-          />
+          {enrolledCustomers.length > 0 && (
+            <Button
+              text="Next"
+              icon="chevron-right"
+              containerStyle={{ marginBottom: 20 }}
+              onPress={onNext}
+            />
+          )}
           <Button
             text="Show QR Code"
             icon="qrcode"
