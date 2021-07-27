@@ -9,6 +9,11 @@ import {
   ScrollView,
 } from 'react-native';
 
+// hooks
+import useAuthContext from '../../contexts/Auth';
+import useSwitch from '../../hooks/useSwitch';
+import { useNavigation } from '@react-navigation/core';
+
 // libraries
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -19,8 +24,8 @@ import Button from '../../components/Button';
 
 // configs
 import colors from '../../configs/colors';
-import useAuthContext from '../../contexts/Auth';
-import useSwitch from '../../hooks/useSwitch';
+import NAVIGATION from '../../configs/navigation';
+
 import api from '../../api';
 
 export default function App() {
@@ -28,12 +33,23 @@ export default function App() {
   const isQRCodeModalOpen = useSwitch();
   const isTorchOn = useSwitch();
   const [enrolledStores, setEnrolledStores] = useState([]);
+  const navigation = useNavigation();
 
   const onRead = (result) => {
     const splitData = result.data.split(':');
-    if (splitData[0] !== 'quer') return;
+    if (splitData[0] !== 'quer') {
+      return;
+    }
     api.customers.queue.enqueue(splitData[1], auth.user);
     isQRCodeModalOpen.false();
+  };
+
+  const navigateToChat = (store) => {
+    navigation.navigate(NAVIGATION.STORE.CHAT, {
+      customerId: store.id,
+      customerName: store.name,
+      storeId: auth.user.id,
+    });
   };
 
   useEffect(() => {
@@ -61,10 +77,13 @@ export default function App() {
           style={styles.stores}
           contentContainerStyle={styles.storesContent}>
           {enrolledStores.map((store) => (
-            <View key={store.id} style={styles.storeCard}>
+            <TouchableOpacity
+              key={store.id}
+              style={styles.storeCard}
+              onPress={() => navigateToChat(store)}>
               <Text style={styles.storeTitle}>{store.name}</Text>
               <Text style={styles.storePhoneNumber}>{store.phoneNumber}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
         <View style={styles.bottom}>

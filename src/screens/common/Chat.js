@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
   message: {
     marginBottom: 5,
     fontSize: 15,
+    color: '#fff',
   },
   chatInput: {
     height: 60,
