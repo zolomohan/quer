@@ -12,6 +12,7 @@ import {
 // hooks
 import useSwitch from '../../hooks/useSwitch';
 import useAuthContext from '../../contexts/Auth';
+import { useNavigation } from '@react-navigation/core';
 
 // libraries
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -22,18 +23,31 @@ import Button from '../../components/Button';
 
 // configs
 import colors from '../../configs/colors';
+import NAVIGATION from '../../configs/navigation';
 
 // helpers
 import api from '../../api';
 
 export default function App() {
   const auth = useAuthContext();
+  const navigation = useNavigation();
   const isQRCodeModalOpen = useSwitch();
 
   const [enrolledCustomers, setEnrolledCustomers] = useState([]);
 
   const onNext = () => {
     api.stores.queue.next(enrolledCustomers[0].id, auth.user.id);
+  };
+
+  const navigateToChat = (id) => {
+    console.log({
+      customerId: id,
+      storeId: auth.user.id,
+    });
+    navigation.navigate(NAVIGATION.STORE.CHAT, {
+      customerId: id,
+      storeId: auth.user.id,
+    });
   };
 
   useEffect(() => {
@@ -60,11 +74,16 @@ export default function App() {
         <ScrollView
           style={styles.stores}
           contentContainerStyle={styles.storesContent}>
-          {enrolledCustomers.map((store) => (
-            <View key={store.id} style={styles.storeCard}>
-              <Text style={styles.storeTitle}>{store.name}</Text>
-              <Text style={styles.storePhoneNumber}>{store.phoneNumber}</Text>
-            </View>
+          {enrolledCustomers.map((customer) => (
+            <TouchableOpacity
+              key={customer.id}
+              style={styles.storeCard}
+              onPress={() => navigateToChat(customer.id)}>
+              <Text style={styles.storeTitle}>{customer.name}</Text>
+              <Text style={styles.storePhoneNumber}>
+                {customer.phoneNumber}
+              </Text>
+            </TouchableOpacity>
           ))}
         </ScrollView>
         <View style={styles.bottom}>

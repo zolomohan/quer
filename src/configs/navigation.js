@@ -5,9 +5,11 @@ const NAVIGATION = {
   },
   CUSTOMER: {
     HOME: 'HOME',
+    CHAT: 'CHAT',
   },
   STORE: {
     HOME: 'HOME',
+    CHAT: 'CHAT',
   },
 };
 
