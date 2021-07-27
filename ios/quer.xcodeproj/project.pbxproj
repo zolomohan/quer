@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4BCF32AF26A37D830018FD39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF32AE26A37D830018FD39 /* GoogleService-Info.plist */; };
+		4BDAF92826B09C200027DD8D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDAF92726B09C200027DD8D /* File.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8250856741070F3F1C175157 /* libPods-quer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECA3024973EA462749B8EAB /* libPods-quer.a */; };
 		D0971F534944DF0E226626A3 /* libPods-quer-querTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6ED9471A1B374BFF6BFCF /* libPods-quer-querTests.a */; };
@@ -38,6 +39,8 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = quer/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = quer/main.m; sourceTree = "<group>"; };
 		4BCF32AE26A37D830018FD39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4BDAF92626B09C1F0027DD8D /* quer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "quer-Bridging-Header.h"; sourceTree = "<group>"; };
+		4BDAF92726B09C200027DD8D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		60D6ED9471A1B374BFF6BFCF /* libPods-quer-querTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-quer-querTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B9B9D934CEA3FFB10F32CA /* Pods-quer-querTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-quer-querTests.debug.xcconfig"; path = "Target Support Files/Pods-quer-querTests/Pods-quer-querTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6795883C28B82B2EC3AFEF56 /* Pods-quer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-quer.release.xcconfig"; path = "Target Support Files/Pods-quer/Pods-quer.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4BDAF92726B09C200027DD8D /* File.swift */,
 				4BCF32AE26A37D830018FD39 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* quer */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -137,6 +141,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				585C5FCB76D2F8DA166FBD26 /* Pods */,
 				8B436993F8FE41D4B97002AC /* Resources */,
+				4BDAF92626B09C1F0027DD8D /* quer-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -212,14 +217,14 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -437,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				4BDAF92826B09C200027DD8D /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,13 +462,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 63B9B9D934CEA3FFB10F32CA /* Pods-quer-querTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = querTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -483,10 +490,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 73A5BF4105CD6F7B9CE0269B /* Pods-quer-querTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = querTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -523,6 +531,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = quer;
+				SWIFT_OBJC_BRIDGING_HEADER = "quer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -548,6 +557,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = quer;
+				SWIFT_OBJC_BRIDGING_HEADER = "quer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -602,7 +612,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -660,7 +670,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
