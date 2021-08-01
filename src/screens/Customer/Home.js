@@ -46,9 +46,9 @@ export default function App() {
 
   const navigateToChat = (store) => {
     navigation.navigate(NAVIGATION.CHAT, {
-      customerId: store.id,
+      customerId: auth.user.id,
       customerName: store.name,
-      storeId: auth.user.id,
+      storeId: store.id,
     });
   };
 
